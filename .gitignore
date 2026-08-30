@@ -1,0 +1,19 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Generated data and model artifacts
+data/*.csv
+!data/README.md
+prediction/models/
+evaluation/output/
+
+# Local cluster and editor files
+.env
+.idea/
+.vscode/
+.claude/

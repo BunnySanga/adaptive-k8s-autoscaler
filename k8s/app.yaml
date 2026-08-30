@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adaptive-scaler-app
+  labels:
+    app: adaptive-scaler-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adaptive-scaler-app
+  template:
+    metadata:
+      labels:
+        app: adaptive-scaler-app
+    spec:
+      containers:
+        - name: app
+          image: adaptive-scaler:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adaptive-scaler-app
+spec:
+  selector:
+    app: adaptive-scaler-app
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+      nodePort: 30080
+

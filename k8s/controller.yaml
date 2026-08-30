@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adaptive-scaler-controller
+  labels:
+    app: adaptive-scaler-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adaptive-scaler-controller
+  template:
+    metadata:
+      labels:
+        app: adaptive-scaler-controller
+    spec:
+      serviceAccountName: adaptive-scaler-controller
+      containers:
+        - name: controller
+          image: adaptive-scaler:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - python3
+            - controller/autoscaler.py
+            - --mode
+            - novelty1
+            - --interval-seconds
+            - "60"
+          env:
+            - name: PROMETHEUS_URL
+              value: http://prometheus:9090
+            - name: PREDICTION_URL
+              value: http://prediction-service:5000/predict
+            - name: DEPLOYMENT_NAME
+              value: adaptive-scaler-app
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
