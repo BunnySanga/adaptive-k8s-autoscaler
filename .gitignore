@@ -6,14 +6,13 @@ __pycache__/
 venv/
 *.egg-info/
 
-# Generated data and model artifacts
-data/*.csv
-!data/README.md
-prediction/models/
-evaluation/output/
+# Claude Code session data (keep CLAUDE.md, exclude sessions)
+.claude/
+
+# Raw dataset (large, hosted on Kaggle)
+data/nasa_qps_history.csv
 
 # Local cluster and editor files
 .env
 .idea/
 .vscode/
-.claude/
