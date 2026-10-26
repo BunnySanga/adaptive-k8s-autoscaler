@@ -160,3 +160,15 @@ Per-sample (2,880 rows) with columns: `sample_index`, `actual_qps`, `hpa_replica
 ### `predictions.csv`
 
 Per-sample with columns: `sample_index`, `actual`, `pahpa_point`, `quantile_p10`, `quantile_p50`, `quantile_p90`, `confidence`, `conf_aware_target`.
+
+## Running Locally / On Other Datasets (`run_pipeline.py`)
+
+`training/run_pipeline.py` is a line-for-line port of the notebook as a CLI script. Use it to re-run the pipeline on any Common Log Format trace without Kaggle:
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r training/requirements-pipeline.txt
+.venv/bin/python training/run_pipeline.py --log <log> [<log> ...] --name <dataset> \
+    --service-rate 30 --max-replicas 15 --out-dir .
+```
+
+It writes `prediction/models/<name>/`, `data/<name>/` and `training/reports/<name>/` under `--out-dir`. On the NASA log it reproduces the committed outputs exactly, provided numpy < 2.4. The script also forces OpenBLAS Haswell kernels; see `results_clarknet.md` §8 for why. The ClarkNet-HTTP generalisation results are in `results_clarknet.md`.

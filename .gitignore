@@ -16,3 +16,8 @@ data/nasa_qps_history.csv
 .env
 .idea/
 .vscode/
+
+# Raw HTTP access logs (re-download from https://ita.ee.lbl.gov/html/traces.html)
+training/raw/
+# Parsed per-minute histories written by training/run_pipeline.py
+data/*/*_qps_history.csv

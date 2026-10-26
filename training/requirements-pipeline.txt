@@ -1,0 +1,10 @@
+# Exact versions used to run training/run_pipeline.py (reproduces the committed
+# NASA results bit-for-bit). numpy must stay < 2.4: 2.4+ changes the last bit of
+# the np.polyfit slope feature, which LightGBM amplifies into different models.
+lightgbm==4.7.0
+numpy==2.3.5
+pandas==3.1.0
+scikit-learn==1.9.1
+matplotlib==3.11.2
+joblib==1.6.0
+pytest==9.1.1
