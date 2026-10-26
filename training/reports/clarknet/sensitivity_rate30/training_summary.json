@@ -1,0 +1,112 @@
+{
+  "architecture": "LightGBM enhanced features + quantile regression + stability filter",
+  "dataset": "clarknet",
+  "source_logs": [
+    "clarknet_access_log_Aug28",
+    "clarknet_access_log_Sep4"
+  ],
+  "parse": {
+    "total_lines": 3328732,
+    "parse_errors": 100,
+    "unique_minutes": 20038,
+    "first_minute": "1995-08-28 00:00:00",
+    "last_minute": "1995-09-10 23:59:00",
+    "raw_minutes": 20160,
+    "zero_minutes": 122
+  },
+  "dataset_rows": 20160,
+  "series_mean_qps": 165.111,
+  "series_max_qps": 520.0,
+  "test_mean_qps": 139.51,
+  "test_max_qps": 358.0,
+  "window_size": 60,
+  "target_transform": "log1p",
+  "test_size": 2880,
+  "seed": 42,
+  "service_rate": 30.0,
+  "slo_s": 1.0,
+  "max_replicas": 40,
+  "paper_reference": {
+    "mape": 24.51,
+    "mae": 7.59,
+    "rmse": 10.53,
+    "r2": 0.81
+  },
+  "pahpa_metrics": {
+    "mape": 23.306175456331886,
+    "mae": 28.076890672996853,
+    "rmse": 36.66646935562471,
+    "r2": 0.5809686676600707
+  },
+  "novelty1_p50_metrics": {
+    "mape": 23.545012632646717,
+    "mae": 27.732998298720002,
+    "rmse": 36.117754372568456,
+    "r2": 0.5934164614308628
+  },
+  "novelty1_conf_aware_metrics": {
+    "mape": 26.432534210058268,
+    "mae": 28.84774279839614,
+    "rmse": 36.891293617175315,
+    "r2": 0.5758142453313941
+  },
+  "prediction_interval": {
+    "coverage_pct": 71.46,
+    "avg_width": 76.79,
+    "median_width": 82.16
+  },
+  "confidence_distribution": {
+    "mean": 0.713,
+    "high_pct": 68.1,
+    "medium_pct": 31.8,
+    "low_pct": 0.0
+  },
+  "stability_filter": {
+    "scale_up_consecutive": 3,
+    "scale_down_m_of_n": "5/7",
+    "burst_multiplier": 2.0,
+    "burst_bypass_fired": 1,
+    "burst_bypass_decisive": 0
+  },
+  "replica_ceiling_hits": {
+    "hpa_baseline": 0,
+    "pahpa_point": 0,
+    "confidence_aware": 0,
+    "stability_aware": 0
+  },
+  "max_replicas_needed_for_actual": 12,
+  "scaling_simulation": {
+    "hpa_baseline": {
+      "slo_violation_pct": 35.17,
+      "p99_latency_ms": 1012.4,
+      "avg_pods": 5.2,
+      "scaling_events": 2024,
+      "flap_count": 515,
+      "over_prov_pct": 10.69
+    },
+    "pahpa_point": {
+      "slo_violation_pct": 35.38,
+      "p99_latency_ms": 1012.4,
+      "avg_pods": 5.04,
+      "scaling_events": 1218,
+      "flap_count": 259,
+      "over_prov_pct": 7.46
+    },
+    "confidence_aware": {
+      "slo_violation_pct": 27.67,
+      "p99_latency_ms": 519.1,
+      "avg_pods": 5.32,
+      "scaling_events": 1114,
+      "flap_count": 226,
+      "over_prov_pct": 10.38
+    },
+    "stability_aware": {
+      "slo_violation_pct": 27.64,
+      "p99_latency_ms": 1012.4,
+      "avg_pods": 5.36,
+      "scaling_events": 149,
+      "flap_count": 0,
+      "over_prov_pct": 11.4
+    }
+  }
+}
